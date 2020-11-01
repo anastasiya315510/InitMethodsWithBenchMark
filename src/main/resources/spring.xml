@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"/>
+    <bean id="shakespeareQuoter" class="quoters.ShakespeareQuoter">
+        <property value="2 be or not to be" name="message"></property>
+    </bean>
+    <bean class="quoters.bpp.InjectRandomIntAnnotationBeanPostProcessor"/>
+    <bean id="terminatorQuoter" class="quoters.TerminatorQuoter">
+        <property name="messages">
+            <list>
+                <value>I'll be back</value>
+                <value>Give me your cloth</value>
+                <value>You're not a cyborg</value>
+                <ref bean ="anotherMessage"/>
+            </list>
+        </property>
+    </bean>
+    <bean id="talkingRobot" class="quoters.TalkingRobotImpl">
+        <property name="quoter">
+            <list>
+                <ref bean="shakespeareQuoter"/>
+                <ref bean="terminatorQuoter"/>
+            </list>
+        </property>
+    </bean>
+    <bean id="anotherMessage" class="java.lang.String">
+        <constructor-arg value="Trust me!"></constructor-arg>
+    </bean>
+
+</beans>
